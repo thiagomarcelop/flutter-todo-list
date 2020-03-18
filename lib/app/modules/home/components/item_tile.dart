@@ -13,20 +13,30 @@ class ItemTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(model.title),
-      onTap: this.onTap,
-      leading: IconButton(
-        icon: Icon(Icons.remove_circle_outline, color: Colors.red), 
-        onPressed: () {
-          Modular.get<HomeController>().delete(model);
-        }
-      ),
-      trailing: Checkbox(
+      // onTap: this.onTap,
+      leading: Checkbox(
         value: model.check, 
         onChanged: (check) {
           model.check = check;
           Modular.get<HomeController>().save(model);
         }
       ),
+      trailing: Wrap(
+        children: <Widget>[
+          IconButton(
+            icon: Icon(Icons.delete, color: Colors.red), 
+            onPressed: () {
+              Modular.get<HomeController>().delete(model);
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.edit, color: Colors.orangeAccent,), 
+            onPressed: this.onTap
+          ),
+        ],
+      ),
+      
+      
     );
   }
 }
